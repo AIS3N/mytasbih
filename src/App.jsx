@@ -45,6 +45,11 @@ function App() {
       navigator.vibrate(50)
     }
 
+    // Clear previous count if user starts tapping again after reset
+    if (previousCount !== null) {
+      setPreviousCount(null)
+    }
+
     setCount(prevCount => {
       const newCount = prevCount + 1
       
@@ -58,7 +63,7 @@ function App() {
       
       return newCount
     })
-  }, [targetCount])
+  }, [targetCount, previousCount])
 
   const handleReset = useCallback(() => {
     setCount(prevCount => {
@@ -113,7 +118,7 @@ function App() {
           <div className="actions">
             {previousCount !== null && (
               <button className="action-btn undo-btn" onClick={handleUndo}>
-                Annuler le reset
+                Cancel reset
               </button>
             )}
             <button className="action-btn" onClick={handleReset}>
