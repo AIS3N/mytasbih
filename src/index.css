@@ -108,13 +108,69 @@ body {
   width: 200%;
   height: 200%;
   background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
-  animation: rotate 20s linear infinite;
+  animation: rotate 30s linear infinite;
   pointer-events: none;
+  will-change: transform;
 }
 
 @keyframes rotate {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.goal-section {
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.goal-section label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-gold);
+  font-weight: 600;
+  font-family: 'Amiri', serif;
+  letter-spacing: 1px;
+}
+
+.goal-input {
+  width: 100%;
+  max-width: 200px;
+  padding: 0.875rem 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid var(--card-border);
+  border-radius: 15px;
+  color: var(--text-light);
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.goal-input::placeholder {
+  color: rgba(248, 249, 250, 0.4);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.goal-input:focus {
+  outline: none;
+  border-color: var(--secondary);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.goal-input::-webkit-outer-spin-button,
+.goal-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.goal-input[type=number] {
+  -moz-appearance: textfield;
 }
 
 .dhikr-selector {
@@ -205,6 +261,7 @@ body {
   text-shadow: 0 4px 8px var(--shadow);
   font-family: 'Poppins', sans-serif;
   line-height: 1;
+  will-change: contents;
 }
 
 .target-count {
@@ -228,13 +285,18 @@ body {
     0 8px 24px rgba(26, 95, 74, 0.4),
     inset 0 -4px 8px rgba(0, 0, 0, 0.2),
     inset 0 4px 8px rgba(255, 255, 255, 0.1);
-  transition: all 0.2s ease;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
   position: relative;
   overflow: hidden;
   font-family: 'Amiri', serif;
   letter-spacing: 2px;
   margin: 0 auto;
   display: block;
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  touch-action: manipulation;
 }
 
 .counter-btn::before {
@@ -297,6 +359,27 @@ body {
   transform: translateY(0);
 }
 
+.undo-btn {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: var(--secondary);
+  animation: slideIn 0.3s ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.undo-btn:hover {
+  background: rgba(212, 175, 55, 0.25);
+}
+
 .completion-message {
   position: fixed;
   top: 50%;
@@ -339,6 +422,13 @@ body {
   margin-bottom: 1.5rem;
 }
 
+.completion-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
 .completion-message button {
   padding: 0.75rem 2rem;
   background: var(--secondary);
@@ -353,6 +443,18 @@ body {
 
 .completion-message button:hover {
   background: #e6c04e;
+  transform: translateY(-2px);
+}
+
+.reset-btn-alt {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: var(--text-light) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.reset-btn-alt:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
   transform: translateY(-2px);
 }
 
@@ -378,4 +480,20 @@ body {
   .dhikr-buttons {
     grid-template-columns: 1fr;
   }
+}
+
+.footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.footer p {
+  font-size: 0.9rem;
+  color: var(--text-gold);
+  font-weight: 600;
+  text-shadow: 0 2px 4px var(--shadow);
+  letter-spacing: 0.5px;
 }

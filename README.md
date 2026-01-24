@@ -1,96 +1,110 @@
 # myTasbih 🕌
 
-A beautiful, Islamic-themed digital tasbih (prayer bead) counter built with React and Vite. Perfect for tracking your daily dhikr and tasbeeh.
+**100% Free & Ad-Free Digital Tasbih Counter**
 
-## ✨ Features
+A beautiful, distraction-free digital tasbih counter for your daily dhikr and remembrance of Allah (SWT). No ads, no tracking, no distractions.
 
-- **Multiple Dhikr Options**: SubhanAllah, Alhamdulillah, Allahu Akbar, and Custom
-- **Automatic Target Counting**: Each dhikr has its recommended count (33/34/100)
-- **Persistent Storage**: Your progress is saved automatically using localStorage
-- **Haptic Feedback**: Vibration feedback on mobile devices
-- **Completion Celebration**: Beautiful animation when you reach your target
-- **Islamic Design**: Elegant gradient backgrounds with gold accents and Arabic typography
-- **Fully Responsive**: Works perfectly on mobile and desktop
-
-## 🚀 Getting Started
-
-### Installation
-
-```bash
-npm install
-```
-
-### Development
-
-```bash
-npm run dev
-```
-
-Visit `http://localhost:5173` to see your app.
-
-### Build
-
-```bash
-npm run build
-```
-
-## 📦 Deployment to GitHub Pages
-
-1. **Create a GitHub repository** named `myTasbih`
-
-2. **Initialize git and push your code**:
-```bash
-git init
-git add .
-git commit -m "Initial commit: Islamic tasbih counter"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/myTasbih.git
-git push -u origin main
-```
-
-3. **Deploy to GitHub Pages**:
-```bash
-npm run deploy
-```
-
-4. **Enable GitHub Pages**:
-   - Go to your repository settings on GitHub
-   - Navigate to "Pages" in the sidebar
-   - Select `gh-pages` branch as the source
-   - Your site will be live at: `https://YOUR_USERNAME.github.io/myTasbih/`
-
-## 🎨 Design Features
-
-- **Color Scheme**: Deep teals and greens with gold accents
-- **Typography**: Amiri font for Arabic text, Poppins for Latin
-- **Animations**: Smooth transitions and hover effects
-- **Glassmorphism**: Frosted glass effect on cards
-- **Islamic Patterns**: Subtle geometric patterns in the background
-
-## 🛠️ Tech Stack
-
-- **React 18** - UI library
-- **Vite** - Build tool and dev server
-- **CSS3** - Styling with gradients, animations, and glassmorphism
-- **LocalStorage API** - Persistent data storage
-- **Vibration API** - Haptic feedback
-
-## 📱 Browser Support
-
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
-
-## 🤲 Usage
-
-1. Select your desired dhikr from the options
-2. Tap the large circular button to increment the counter
-3. The app will vibrate (on supported devices) with each tap
-4. When you reach the target count, a celebration message appears
-5. Use the Reset button to start over
-6. Your progress is automatically saved
+Keep track of your tasbeeh anytime, anywhere - whether on your phone, tablet, or computer.
 
 ---
 
-**May this app help you in your daily remembrance of Allah (SWT). Barakallahu feek! 🤲**
+## 🤲 How to Use
+
+### 1. **Set Your Goal** (Optional)
+Enter a target count in the input field. Common goals:
+- 33 times (SubhanAllah, Alhamdulillah)
+- 34 times (Allahu Akbar)
+- 100 times (any dhikr)
+- Or any custom number you choose
+
+*Leave blank for unlimited counting*
+
+### 2. **Start Counting**
+Simply tap the large circular button each time you recite your dhikr. On mobile devices, you'll feel a gentle vibration with each tap.
+
+### 3. **Track Your Progress**
+Watch your counter increase as you progress toward your goal. Your count and goal are automatically saved, so you can close the app and come back anytime.
+
+### 4. **Reach Your Goal**
+When you complete your target count, you'll see a beautiful celebration message with options to:
+- **Continue** - Keep counting beyond your goal
+- **Reset** - Start a new session
+
+### 5. **Undo Feature**
+Accidentally hit reset? No problem! An "Annuler le reset" (Undo) button will appear immediately after resetting, allowing you to restore your count.
+
+---
+
+## ✨ Features
+
+✅ **100% Free Forever** - No hidden costs, no premium plans  
+✅ **Completely Ad-Free** - Zero ads, zero tracking, zero distractions  
+✅ **Custom Goal Setting** - Set any target count you want  
+✅ **Undo Reset** - Accidentally reset? Undo it instantly  
+✅ **Auto-Save** - Never lose your progress  
+✅ **Haptic Feedback** - Feel each count on mobile devices  
+✅ **Completion Celebration** - Beautiful message when you reach your goal  
+✅ **Islamic Design** - Elegant teal/green gradients with gold accents  
+✅ **Works Offline** - No internet needed after first visit  
+✅ **Fast & Smooth** - Optimized performance for rapid counting  
+✅ **Mobile & Desktop** - Responsive design for any device  
+✅ **Privacy Focused** - No data collection, no analytics  
+
+---
+
+## 🎨 Why myTasbih?
+
+**No Distractions**
+Unlike other apps, myTasbih has ZERO ads. Your worship should never be interrupted by advertisements or tracking.
+
+**Simple & Focused**
+Just a counter, a goal, and your dhikr. Nothing else. The way it should be.
+
+**Always Free**
+This app was built for the sake of Allah (SWT). It will always be free and ad-free.
+
+---
+
+## 📱 Add to Home Screen
+
+For quick access without opening your browser:
+
+**iPhone/iPad:**
+1. Open the app in Safari
+2. Tap the Share button (⬆️)
+3. Scroll down and select "Add to Home Screen"
+4. Tap "Add"
+
+**Android:**
+1. Open the app in Chrome
+2. Tap the menu (⋮)
+3. Select "Add to Home screen"
+4. Tap "Add"
+
+Now you'll have a dedicated icon on your home screen, just like a native app!
+
+---
+
+## 💚 Share the Good
+
+If myTasbih helps you in your daily worship, share it with friends and family. May Allah (SWT) reward you for spreading good!
+
+Share link: **https://ais3n.github.io/mytasbih/**
+
+---
+
+## 🔒 Privacy
+
+myTasbih respects your privacy:
+- ✅ No user tracking
+- ✅ No analytics
+- ✅ No data collection
+- ✅ No cookies
+- ✅ All data stays on your device
+
+---
+
+**May Allah accept your dhikr and increase you in faith. Ameen! 🤲**
+
+*Built with ❤️ for the Muslim community*  
+*No Ads • No Tracking • 100% Free Forever*

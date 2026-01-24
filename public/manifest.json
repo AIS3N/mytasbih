@@ -1,0 +1,21 @@
+{
+  "name": "myTasbih - Free & Ad-Free Digital Tasbih Counter",
+  "short_name": "myTasbih",
+  "description": "100% Free & Ad-Free Digital Tasbih Counter for tracking dhikr and tasbeeh",
+  "start_url": "/mytasbih/",
+  "display": "standalone",
+  "background_color": "#0f2027",
+  "theme_color": "#1a5f4a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/mytasbih/tasbih-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "utilities"],
+  "lang": "en",
+  "dir": "ltr"
+}

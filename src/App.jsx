@@ -1,104 +1,109 @@
-import { useState, useEffect } from 'react'
-
-const DHIKR_OPTIONS = [
-  { id: 'subhanallah', text: 'سُبْحَانَ ٱللَّٰهِ', translation: 'SubhanAllah', target: 33 },
-  { id: 'alhamdulillah', text: 'ٱلْحَمْدُ لِلَّٰهِ', translation: 'Alhamdulillah', target: 33 },
-  { id: 'allahuakbar', text: 'ٱللَّٰهُ أَكْبَرُ', translation: 'Allahu Akbar', target: 34 },
-  { id: 'custom', text: 'Custom', translation: 'Custom Dhikr', target: 100 },
-]
+import { useState, useEffect, useCallback, useRef } from 'react'
 
 function App() {
-  const [selectedDhikr, setSelectedDhikr] = useState(DHIKR_OPTIONS[0])
   const [count, setCount] = useState(0)
+  const [targetCount, setTargetCount] = useState('')
   const [showCompletion, setShowCompletion] = useState(false)
+  const [previousCount, setPreviousCount] = useState(null)
+  const saveTimeoutRef = useRef(null)
 
-  // Load saved state from localStorage
   useEffect(() => {
     const savedState = localStorage.getItem('tasbihState')
     if (savedState) {
       try {
-        const { dhikrId, count: savedCount } = JSON.parse(savedState)
-        const dhikr = DHIKR_OPTIONS.find(d => d.id === dhikrId) || DHIKR_OPTIONS[0]
-        setSelectedDhikr(dhikr)
+        const { count: savedCount, target: savedTarget } = JSON.parse(savedState)
         setCount(savedCount)
+        setTargetCount(savedTarget || '')
       } catch (e) {
         console.error('Error loading saved state:', e)
       }
     }
   }, [])
 
-  // Save state to localStorage whenever it changes
+  // Debounced save to localStorage
   useEffect(() => {
-    localStorage.setItem('tasbihState', JSON.stringify({
-      dhikrId: selectedDhikr.id,
-      count
-    }))
-  }, [selectedDhikr, count])
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current)
+    }
+    
+    saveTimeoutRef.current = setTimeout(() => {
+      localStorage.setItem('tasbihState', JSON.stringify({
+        count,
+        target: targetCount
+      }))
+    }, 300)
 
-  const handleIncrement = () => {
-    // Vibrate on mobile devices
+    return () => {
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current)
+      }
+    }
+  }, [count, targetCount])
+
+  const handleIncrement = useCallback(() => {
     if (navigator.vibrate) {
       navigator.vibrate(50)
     }
 
-    const newCount = count + 1
-    setCount(newCount)
-
-    // Show completion message when target is reached
-    if (newCount === selectedDhikr.target) {
-      setShowCompletion(true)
-      if (navigator.vibrate) {
-        navigator.vibrate([100, 50, 100, 50, 100])
+    setCount(prevCount => {
+      const newCount = prevCount + 1
+      
+      const target = parseInt(targetCount)
+      if (target > 0 && newCount === target) {
+        setShowCompletion(true)
+        if (navigator.vibrate) {
+          navigator.vibrate([100, 50, 100, 50, 100])
+        }
       }
+      
+      return newCount
+    })
+  }, [targetCount])
+
+  const handleReset = useCallback(() => {
+    setCount(prevCount => {
+      setPreviousCount(prevCount)
+      return 0
+    })
+    setShowCompletion(false)
+  }, [])
+
+  const handleUndo = useCallback(() => {
+    if (previousCount !== null) {
+      setCount(previousCount)
+      setPreviousCount(null)
     }
-  }
+  }, [previousCount])
 
-  const handleReset = () => {
-    setCount(0)
+  const handleContinue = useCallback(() => {
     setShowCompletion(false)
-  }
-
-  const handleDhikrChange = (dhikr) => {
-    setSelectedDhikr(dhikr)
-    setCount(0)
-    setShowCompletion(false)
-  }
-
-  const handleContinue = () => {
-    setShowCompletion(false)
-  }
+  }, [])
 
   return (
     <div className="app">
       <div className="container">
         <header className="header">
           <h1>myTasbih</h1>
-          <p>Digital Tasbih Counter</p>
+          <p>100% Free & Ad-Free Digital Tasbih Counter</p>
         </header>
 
         <div className="tasbih-card">
-          <div className="dhikr-selector">
-            <label>Select Dhikr</label>
-            <div className="dhikr-buttons">
-              {DHIKR_OPTIONS.map((dhikr) => (
-                <button
-                  key={dhikr.id}
-                  className={`dhikr-btn ${selectedDhikr.id === dhikr.id ? 'active' : ''}`}
-                  onClick={() => handleDhikrChange(dhikr)}
-                >
-                  <span>{dhikr.text}</span>
-                  <br />
-                  <span style={{ fontSize: '0.85rem', opacity: 0.8 }}>
-                    {dhikr.translation}
-                  </span>
-                </button>
-              ))}
-            </div>
+          <div className="goal-section">
+            <label htmlFor="target-input">Set Your Goal</label>
+            <input
+              id="target-input"
+              type="number"
+              min="1"
+              placeholder="Enter target count"
+              value={targetCount}
+              onChange={(e) => setTargetCount(e.target.value)}
+              className="goal-input"
+            />
           </div>
 
           <div className="counter-section">
             <div className="counter-display">{count}</div>
-            <div className="target-count">of {selectedDhikr.target}</div>
+            {targetCount && <div className="target-count">of {targetCount}</div>}
             
             <button className="counter-btn" onClick={handleIncrement}>
               TAP
@@ -106,19 +111,29 @@ function App() {
           </div>
 
           <div className="actions">
+            {previousCount !== null && (
+              <button className="action-btn undo-btn" onClick={handleUndo}>
+                Annuler le reset
+              </button>
+            )}
             <button className="action-btn" onClick={handleReset}>
-              <span>🔄</span>
               Reset
             </button>
           </div>
         </div>
+        
+        <footer className="footer">
+          <p>✨ No Ads • No Tracking • 100% Free Forever ✨</p>
+        </footer>
       </div>
 
       {showCompletion && (
         <div className="completion-message">
-          <h2>ما شاء الله</h2>
-          <p>You've completed {selectedDhikr.target} {selectedDhikr.translation}!</p>
-          <button onClick={handleContinue}>Continue</button>
+          <p>You've achieved your goal of {targetCount}!</p>
+          <div className="completion-actions">
+            <button className="reset-btn-alt" onClick={handleReset}>Reset</button>
+            <button onClick={handleContinue}>Continue</button>
+          </div>
         </div>
       )}
     </div>

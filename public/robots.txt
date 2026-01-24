@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ais3n.github.io/mytasbih/sitemap.xml
