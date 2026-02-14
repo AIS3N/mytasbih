@@ -84,6 +84,53 @@ function App() {
     setShowCompletion(false)
   }, [])
 
+  // Listen for physical button presses
+  useEffect(() => {
+    // Keyboard support (desktop)
+    const handleKeyPress = (e) => {
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault()
+        handleIncrement()
+      }
+    }
+
+    // Media Session API for headphone/media control buttons (iOS/Android)
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: 'myTasbih Counter',
+        artist: 'Tap to count',
+        album: `Count: ${count}`
+      })
+
+      const handlers = {
+        play: handleIncrement,
+        pause: handleIncrement,
+        nexttrack: handleIncrement,
+        previoustrack: handleIncrement
+      }
+
+      for (const [action, handler] of Object.entries(handlers)) {
+        try {
+          navigator.mediaSession.setActionHandler(action, handler)
+        } catch (error) {
+          console.log(`The media session action "${action}" is not supported`)
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyPress)
+    
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress)
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.setActionHandler('play', null)
+        navigator.mediaSession.setActionHandler('pause', null)
+        navigator.mediaSession.setActionHandler('nexttrack', null)
+        navigator.mediaSession.setActionHandler('previoustrack', null)
+      }
+    }
+  }, [handleIncrement, count])
+
   return (
     <div className="app">
       <div className="container">
